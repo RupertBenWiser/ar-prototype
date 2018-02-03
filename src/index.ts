@@ -1,3 +1,6 @@
+declare var Glade: any;
+declare var mat4: any;
+
 async function main() {
 
     const stream = await navigator.mediaDevices.getUserMedia({
@@ -39,7 +42,8 @@ async function main() {
 
     const renderer = Glade.default("#content", window.innerWidth, window.innerHeight, [0, 0, 0, 0], 45, 0.1, 10000.0);
     document.getElementById("content").appendChild(video);
-    document.querySelector("#content canvas").style.position = "absolute";
+    const canvas: any = document.querySelector("#content canvas");
+    canvas.style.position = "absolute";
 
     const treeModel = await renderer.LoadObjFromUrl('models/tree.obj');
 
