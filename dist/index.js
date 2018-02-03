@@ -84,15 +84,12 @@ function main() {
                     mat4.translate(renderer.VIEW_MATRIX, renderer.VIEW_MATRIX, [0, -60, 0]);
                     renderer.renderLoop(function (gl) {
                         if (initialOrientation !== undefined) {
-                            var alphaDiff = deviceOrientation.alpha - initialOrientation.alpha;
-                            var betaDiff = deviceOrientation.beta - initialOrientation.beta;
-                            var gammaDiff = deviceOrientation.gamma - initialOrientation.gamma;
                             mat4.identity(renderer.VIEW_MATRIX);
                             mat4.lookAt(renderer.VIEW_MATRIX, [0, 0, 0], [0, 0, 0], [0, 1, 0]);
                             mat4.translate(renderer.VIEW_MATRIX, renderer.VIEW_MATRIX, [0, -60, 0]);
                             // mat4.rotate(renderer.VIEW_MATRIX, renderer.VIEW_MATRIX, -(alphaDiff / 2) * (Math.PI / 180), [0, 0, 1]);
-                            mat4.rotate(renderer.VIEW_MATRIX, renderer.VIEW_MATRIX, -gammaDiff * (Math.PI / 180), [0, 1, 0]);
-                            mat4.rotate(renderer.VIEW_MATRIX, renderer.VIEW_MATRIX, -betaDiff * (Math.PI / 180), [1, 0, 0]);
+                            mat4.rotate(renderer.VIEW_MATRIX, renderer.VIEW_MATRIX, -deviceOrientation.gamma * (Math.PI / 180), [0, 1, 0]);
+                            mat4.rotate(renderer.VIEW_MATRIX, renderer.VIEW_MATRIX, (90 - deviceOrientation.beta) * (Math.PI / 180), [1, 0, 0]);
                         }
                         treeModel.render();
                     });
